@@ -35,13 +35,14 @@ enum {
     TD_COPY,
     TD_PASTE,
 TD_CUT,
+TD_SELECTALL,
 }; // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
     [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(KC_Y, LGUI(KC_C)),
     [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(KC_P, LGUI(KC_V)), 
-
+//    [TD_SELECTALL] = ACTION_TAP_DANCE_DOUBLE(HOME_A, LGUI(KC_A)), 
     [TD_CUT] = ACTION_TAP_DANCE_DOUBLE(KC_X, LGUI(KC_X)), 
 };
 
