@@ -30,15 +30,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HOME_L LALT_T(KC_L)
 #define HOME_SCLN RGUI_T(KC_SCLN)
 #define SS LGUI(LSFT(KC_4)) 
+enum {
+    TD_ESC_CAPS,
+    TD_COPY,
+    TD_PASTE,
+TD_CUT,
+TD_SELECTALL,
+}; // Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+    [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(KC_Y, LGUI(KC_C)),
+    [TD_PASTE] = ACTION_TAP_DANCE_DOUBLE(KC_P, LGUI(KC_V)), 
+//    [TD_SELECTALL] = ACTION_TAP_DANCE_DOUBLE(HOME_A, LGUI(KC_A)), 
+    [TD_CUT] = ACTION_TAP_DANCE_DOUBLE(KC_X, LGUI(KC_X)), 
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_ESC,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         TD(TD_COPY),    KC_U,    KC_I,    KC_O,   TD(TD_PASTE),  TD(TD_ESC_CAPS),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    HOME_A,    HOME_S,    HOME_D,    HOME_F,    KC_G,                         KC_H,    HOME_J,    HOME_K,    HOME_L, HOME_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+      KC_LSFT,    KC_Z,    TD(TD_CUT),    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(1),  LT(1,KC_ENT),    LT(2,KC_SPC) ,   KC_BSPC, KC_RALT
                                       //`--------------------------'  `--------------------------'
